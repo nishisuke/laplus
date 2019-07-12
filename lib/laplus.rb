@@ -14,6 +14,7 @@ end
 
 require 'Laplus/extensions/method_extension'
 
+# [Method, UnboundMethod].each { @1.include Laplus::MethodExtension }
 [Method, UnboundMethod].each do |klass|
   klass.include(Laplus::MethodExtension)
 end
