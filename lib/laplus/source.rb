@@ -4,6 +4,8 @@ require 'laplus/parser'
 
 module Laplus
   class Source
+    SnipTooManyLines = Class.new(Laplus::Error)
+
     def initialize(path, reader = File, parser = Parser.new)
       @path = path
       @reader = reader
@@ -13,6 +15,7 @@ module Laplus
     def snip_code_at(line)
       beginning_index = line - 1
       ending_index = (beginning_index..).find do |index|
+        raise SnipTooManyLines if index - beginning_index > 100
         code = lines[beginning_index..index].join
         parser.parse(code)
       end
