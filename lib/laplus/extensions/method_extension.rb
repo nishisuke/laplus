@@ -2,15 +2,25 @@
 
 module Laplus
   module MethodExtension
-    def definition
-      return '(defined in clang)' if source_location.nil?
+    class << self
+      def definition(method)
+        return '(defined in clang)' if method.source_location.nil?
 
-      path, line = source_location
+        path, line = method.source_location
 
-      return "defined at #{path}. but no such file." unless File.exist? path
+        return "defined at #{path}. but no such file." unless File.exist? path
 
-      snippet = Source.new(path).snip_code_at(line)
-      Definition.new(self, snippet)
+        snippet = Source.new(path).snip_code_at(line)
+        Definition.new(method, snippet)
+      end
+    end
+
+    def definition(with_super = false)
+      if with_super && respond_to?(:super_method) && super_method
+        super_method.definition(with_super) + [MethodExtension.definition(self)]
+      else
+        [MethodExtension.definition(self)]
+      end
     end
   end
 end
