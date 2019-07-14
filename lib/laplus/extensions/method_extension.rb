@@ -3,6 +3,8 @@
 module Laplus
   module MethodExtension
     def definition
+      return '(defined in clang)' if source_location.nil?
+
       path, line = source_location
       snippet = Source.new(path).snip_code_at(line)
       Definition.new(snippet)
