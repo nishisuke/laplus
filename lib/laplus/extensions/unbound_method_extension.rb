@@ -3,7 +3,7 @@
 require 'laplus/extensions/interface'
 
 module Laplus
-  module MethodExtension
+  module UnboundMethodExtension
     include ExtensionInterface
 
     def definition(with_super = false)

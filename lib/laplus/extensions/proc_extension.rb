@@ -3,7 +3,7 @@
 require 'laplus/extensions/interface'
 
 module Laplus
-  module MethodExtension
+  module ProcExtension
     include ExtensionInterface
 
     def definition(with_super = false)
