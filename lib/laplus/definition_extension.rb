@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Laplus
-  module ExtensionInterface
+  module DefinitionExtension
     def definition_with_super
       definition(true)
     end

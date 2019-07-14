@@ -11,9 +11,10 @@ module Laplus
   autoload :IRBCommandExtension, 'laplus/repl_extensions/irb_command_extension'
 end
 
-require 'laplus/extensions/method_extension'
-require 'laplus/extensions/unbound_method_extension'
-require 'laplus/extensions/proc_extension'
+require 'laplus/definition_extension'
+require 'laplus/definition_extension/method_extension'
+require 'laplus/definition_extension/unbound_method_extension'
+require 'laplus/definition_extension/proc_extension'
 
 [Method, UnboundMethod, Proc].each do |klass|
   klass.include Laplus.const_get("#{klass.name}Extension")
