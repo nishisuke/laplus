@@ -8,7 +8,7 @@ module Laplus
     end
 
     def inspect
-      "\n#{snippet_offset_indent.chomp}"
+      "#{@method.inspect}\n#{snippet_offset_indent.chomp}"
     end
 
     private
