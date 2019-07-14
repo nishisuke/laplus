@@ -8,7 +8,13 @@ module Laplus
     end
 
     def inspect
-      "#{@method.inspect}\n#{snippet_offset_indent.chomp}"
+      <<~DEFINITION
+        #{@method.inspect}
+
+        #{@method.owner.class.name.downcase} #{@method.owner.name}
+        #{snippet_offset_indent.chomp}
+        end
+      DEFINITION
     end
 
     private
@@ -18,7 +24,7 @@ module Laplus
       return @snippet unless match
 
       indent = match.captures.first
-      lines.map { |l| l.delete_prefix indent }.join("\n")
+      lines.map { |l| "  #{l.delete_prefix(indent)}" }.join("\n")
     end
 
     def lines
