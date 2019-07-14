@@ -10,7 +10,7 @@ module Laplus
       return "defined at #{path}. but no such file." unless File.exist? path
 
       snippet = Source.new(path).snip_code_at(line)
-      Definition.new(snippet)
+      Definition.new(self, snippet)
     end
   end
 end

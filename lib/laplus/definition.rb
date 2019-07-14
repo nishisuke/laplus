@@ -2,7 +2,8 @@
 
 module Laplus
   class Definition
-    def initialize(snippet)
+    def initialize(method, snippet)
+      @method = method
       @snippet = snippet
     end
 
