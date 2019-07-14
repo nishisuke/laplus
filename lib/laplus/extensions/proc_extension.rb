@@ -7,7 +7,7 @@ module Laplus
     include ExtensionInterface
 
     def definition(with_super = false)
-      Definition.of(self, with_super)
+      ProcDefinition.of(self, with_super)
     end
   end
 end

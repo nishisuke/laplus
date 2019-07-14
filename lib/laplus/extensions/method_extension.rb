@@ -7,7 +7,7 @@ module Laplus
     include ExtensionInterface
 
     def definition(with_super = false)
-      Definition.of(self, with_super)
+      MethodDefinition.of(self, with_super)
     end
   end
 end
