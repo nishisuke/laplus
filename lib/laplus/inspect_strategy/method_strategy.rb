@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'laplus/ui'
+require 'laplus/helper'
 
 module Laplus
   module InspectStrategy
@@ -23,14 +24,9 @@ module Laplus
                     Source.new(path).snip_code_at(line)
                   end
 
-        lines = snippet.split("\n")
-        snippet_offset_indent = UI::IndentionLines.new(lines).offset.indent(1).join("\n")
+        snippet_offset_indent = UI::Indention.split(snippet).offset.indent(1)
 
-        super_methods = [method]
-        while super_method = super_methods.last.super_method
-          super_methods << super_method
-        end
-        super_methods.reverse!
+        super_methods = Helper::MethodHelper.new(method).super_methods
 
         <<~DEFINITION
 

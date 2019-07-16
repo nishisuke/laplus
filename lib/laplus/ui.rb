@@ -2,7 +2,13 @@
 
 module Laplus
   module UI
-    class IndentionLines
+    class Indention
+      class << self
+        def split(text)
+          new(text.split("\n"))
+        end
+      end
+
       INDENTION_REGEX = /\A(\s+)/
 
       def initialize(lines, padding = '  ')
@@ -21,7 +27,7 @@ module Laplus
 
       def indent(depth)
         indention = padding * depth
-        lines.map { |line| "#{indention}#{line}" }
+        lines.map { |line| "#{indention}#{line}" }.join("\n")
       end
 
       private
