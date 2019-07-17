@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'laplus/ui'
-require 'laplus/helper'
-
 module Laplus
   module InspectStrategy
     class MethodStrategy < Base
