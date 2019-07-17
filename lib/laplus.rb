@@ -14,10 +14,13 @@ module Laplus
   autoload :Inspector, 'laplus/inspector'
   autoload :Source, 'laplus/source'
 
+  autoload :UI, 'laplus/ui'
+  autoload :Helper, 'laplus/helper'
+
   autoload :IRBCommandExtension, 'laplus/repl_extensions/irb_command_extension'
 end
 
-[Method, UnboundMethod, Proc].each do |klass|
+[Method, UnboundMethod].each do |klass|
   klass.include Laplus::Extension
 end
 
