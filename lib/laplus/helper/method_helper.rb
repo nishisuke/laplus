@@ -7,8 +7,16 @@ module Laplus
         @_method = _method
       end
 
-      def is_alias?
+      def owner_singleton?
+        _method.owner.singleton_class?
+      end
+
+      def alias?
         _method.original_name != _method.name
+      end
+
+      def singleton_method_of_module?
+        owner_singleton? && _method.receiver.kind_of?(Module)
       end
 
       def super_methods
