@@ -10,10 +10,12 @@ module Laplus
         # end
       def inspect
         method = inspector.object
-        source_location = method.source_location
-        path, line = source_location
+        path, line = method.source_location
 
-        snippet = if source_location.nil?
+        method_helper = Helper::MethodHelper.new(method)
+        super_methods = method_helper.super_methods
+
+        snippet = if method.source_location.nil?
                     '(defined in clang)'
                   elsif !File.exist?(path)
                     "defined at #{path}. but no such file."
@@ -21,21 +23,37 @@ module Laplus
                     Source.new(path).snip_code_at(line)
                   end
 
-        snippet_offset_indent = UI::Indention.split(snippet).offset.indent(1)
+        defined_class_text = if method_helper.singleton_method_of_module?
+                               "#{method.receiver.class.name.downcase} #{method.receiver.name}" # ex. module Hoge
+                             else
+                               "#{method.owner.class.name.downcase} #{method.owner.name}" # ex. module Hoge
+                             end
 
-        super_methods = Helper::MethodHelper.new(method).super_methods
+        singleton_class_text = if method_helper.singleton_method_of_module?
+                                 '  class << self'
+                               end
 
-        <<~DEFINITION
-
-          #{path}:#{line}
-
-          super_methods:
-          #{super_methods.map { |m|  '  ' + m.inspect.match(/Method: (.+)>\z/).to_a[1] }.join("\n")}
-
-          #{method.owner.class.name.downcase} #{method.owner.name}
-          #{snippet_offset_indent.chomp}
+        if method_helper.singleton_method_of_module?
+          def_snippet = snippet.split("\n").first
+          if def_snippet.match?(/def self./)
+            singleton_class_text = nil
           end
-        DEFINITION
+        end
+
+        desc_lines = []
+        desc_lines << ''
+        desc_lines << "#{path}:#{line}"
+        desc_lines << ''
+        desc_lines << 'super_methods:'
+        desc_lines += super_methods.map { |m|  '  ' + m.inspect.match(/Method: (.+)>\z/).to_a[1] }
+        desc_lines << ''
+        desc_lines << defined_class_text
+        desc_lines << singleton_class_text unless singleton_class_text.nil?
+        desc_lines << UI::Indention.split(snippet).offset.indent(singleton_class_text.nil? ? 1 : 2).chomp
+        desc_lines << '  end' unless singleton_class_text.nil?
+        desc_lines << 'end'
+
+        desc_lines.join("\n")
       end
     end
   end
