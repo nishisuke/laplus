@@ -13,6 +13,7 @@ module Laplus
 
   autoload :Inspector, 'laplus/inspector'
   autoload :Source, 'laplus/source'
+  autoload :InspectStrategy, 'laplus/inspect_strategy'
 
   autoload :UI, 'laplus/ui'
   autoload :Helper, 'laplus/helper'

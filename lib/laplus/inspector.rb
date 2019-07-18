@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'laplus/inspect_strategy'
-
 module Laplus
   class Inspector
     attr_reader :object
