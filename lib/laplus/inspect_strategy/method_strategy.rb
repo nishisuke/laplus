@@ -3,11 +3,6 @@
 module Laplus
   module InspectStrategy
     class MethodStrategy < Base
-        # if with_super && method.respond_to?(:super_method) && method.super_method
-        #   method.super_method.definition(with_super) + [MethodDefinition.definition(method)]
-        # else
-        #   [MethodDefinition.definition(method)]
-        # end
       def inspect
         method = inspector.object
         path, line = method.source_location

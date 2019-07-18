@@ -21,7 +21,7 @@ module Laplus
       when Method, UnboundMethod
         InspectStrategy::MethodStrategy.new(self)
       when Proc
-        raise NotImplementedError
+        InspectStrategy::ProcStrategy.new(self)
       else
         raise NotImplementedError
       end

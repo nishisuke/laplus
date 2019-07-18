@@ -20,7 +20,7 @@ module Laplus
   autoload :IRBCommandExtension, 'laplus/repl_extensions/irb_command_extension'
 end
 
-[Method, UnboundMethod].each do |klass|
+[Method, UnboundMethod, Proc].each do |klass|
   klass.include Laplus::Extension
 end
 
