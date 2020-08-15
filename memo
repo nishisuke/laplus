@@ -1,0 +1,16 @@
+irb(main):005:0> m.curry
+=> #<Proc:0x00007fd42380ca10 (lambda)>
+irb(main):006:0> m.source_location
+=> nil
+irb(main):007:0> m.owner
+=> Integer
+irb(main):008:0> m.super_method
+=> #<Method: Kernel#to_s>
+irb(main):009:0> m.name
+=> :to_s
+irb(main):010:0> m.original_name
+=> :to_s
+irb(main):011:0> m.receiver
+=> 3
+irb(main):012:0> m.arity
+=> -1
